@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:pts_flutter/detail.dart';
 import 'package:pts_flutter/movie_model.dart';
 
 class Menu extends StatefulWidget {
@@ -86,67 +87,80 @@ class _MenuState extends State<Menu> {
                               scrollDirection: Axis.vertical,
                               itemCount: movieModel.results.length,
                               itemBuilder: (context, index) {
+                                Result movie = movieModel.results[index];
                                 return Card(
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            height: 100,
-                                            width: 100,
-                                            child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(200),
-                                                child: CachedNetworkImage(
-                                                  imageUrl:
-                                                      "https://image.tmdb.org/t/p/w500" +
-                                                          movieModel
-                                                              .results[index]
-                                                              .posterPath,
-                                                  placeholder: (context, url) =>
-                                                      Image.asset(
-                                                          "assets/felm.png",
-                                                          height: 100),
-                                                )),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8),
-                                            child: Container(
-                                              width: 150,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    movieModel
-                                                        .results[index].title,
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 16),
-                                                  ),
-                                                  SizedBox(height: 3),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      Icon(Icons.people),
-                                                      Text(
-                                                        '${movieModel.results[index].popularity}',
-                                                        style: TextStyle(
-                                                            fontSize: 14),
-                                                      ),
-                                                    ],
-                                                  )
-                                                ],
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Detail(movie: movie)));
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              height: 100,
+                                              width: 100,
+                                              child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          200),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl:
+                                                        "https://image.tmdb.org/t/p/w500" +
+                                                            movieModel
+                                                                .results[index]
+                                                                .posterPath,
+                                                    placeholder: (context,
+                                                            url) =>
+                                                        Image.asset(
+                                                            "assets/felm.png",
+                                                            height: 100),
+                                                  )),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8),
+                                              child: Container(
+                                                width: 150,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      movieModel
+                                                          .results[index].title,
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 16),
+                                                    ),
+                                                    SizedBox(height: 3),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Icon(Icons.people),
+                                                        Text(
+                                                          '${movieModel.results[index].popularity}',
+                                                          style: TextStyle(
+                                                              fontSize: 14),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 );
                               })),
