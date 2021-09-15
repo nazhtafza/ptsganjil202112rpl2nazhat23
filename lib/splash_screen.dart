@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:pts_flutter/welcome_screen.dart';
 
@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              "assets/splash.jpg",
+              "assets/moovees.png",
               height: 250,
             ),
             const SizedBox(height: 20),
